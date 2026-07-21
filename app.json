@@ -1,25 +1,55 @@
 {
   "expo": {
-    "name": "GPS_Camera",
+    "name": "GPS Camera",
     "slug": "GPS_Camera",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "gpscamera",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "GPS Camera needs camera access to capture site investigation photos.",
+        "NSLocationWhenInUseUsageDescription": "GPS Camera needs your location to embed GPS coordinates into site photos.",
+        "NSPhotoLibraryAddUsageDescription": "GPS Camera saves geo-tagged site photos to your photo library."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#0a0a0f",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO"
+      ],
+      "package": "com.adityakumar5155.GPS_Camera"
     },
     "web": {
       "output": "static",
@@ -27,15 +57,31 @@
     },
     "plugins": [
       "expo-router",
+      "expo-camera",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "GPS Camera needs your location to embed GPS coordinates in site investigation photos.",
+          "locationAlwaysAndWhenInUsePermission": "GPS Camera needs your location to embed GPS coordinates in site investigation photos."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "GPS Camera saves captured site photos with GPS overlay to your gallery.",
+          "savePhotosPermission": "GPS Camera saves captured site photos with GPS overlay to your gallery.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
       [
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#0a0a0f",
           "dark": {
-            "backgroundColor": "#000000"
+            "backgroundColor": "#0a0a0f"
           }
         }
       ]
