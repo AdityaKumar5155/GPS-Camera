@@ -3,6 +3,7 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as Location from 'expo-location';
 import * as MediaLibrary from 'expo-media-library';
 import * as Sharing from 'expo-sharing';
+import { Ionicons } from '@expo/vector-icons';
 import React, {
   useCallback,
   useEffect,
@@ -154,6 +155,7 @@ export default function CameraScreen() {
   const [snapshot, setSnapshot] = useState<GpsSnapshot | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState('');
+  const [facing, setFacing] = useState<'back' | 'front'>('back');
   const capturedOnce = useRef(false);
 
   const cameraRef = useRef<CameraView>(null);
@@ -399,7 +401,7 @@ export default function CameraScreen() {
           <CameraView
             ref={cameraRef}
             style={StyleSheet.absoluteFill}
-            facing="back"
+            facing={facing}
           />
           {/* Live overlay — display only, not captured */}
           <View
@@ -437,7 +439,7 @@ export default function CameraScreen() {
 
       {/* ── Action layer (NOT captured by ViewShot) ── */}
       <View style={styles.actionLayer} pointerEvents="box-none">
-        {/* CAMERA: shutter button — sits directly above the GPS overlay */}
+        {/* CAMERA: shutter button + flip button — sits directly above the GPS overlay */}
         {appState === 'camera' && (
           <View style={[styles.shutterAbove, { bottom: OVERLAY_HEIGHT }]}>
             <TouchableOpacity
@@ -447,6 +449,15 @@ export default function CameraScreen() {
               <Animated.View style={[styles.shutterOuter, { transform: [{ scale: shutterScale }] }]}>
                 <View style={styles.shutterInner} />
               </Animated.View>
+            </TouchableOpacity>
+
+            {/* Flip camera button */}
+            <TouchableOpacity
+              style={styles.flipBtn}
+              onPress={() => setFacing(f => f === 'back' ? 'front' : 'back')}
+              activeOpacity={0.75}
+              accessibilityLabel="Flip camera">
+              <Ionicons name="camera-reverse-outline" size={28} color="white" />
             </TouchableOpacity>
           </View>
         )}
@@ -657,6 +668,25 @@ const styles = StyleSheet.create({
     borderRadius: 27,
     backgroundColor: '#fff',
   },
+flipBtn: {
+  position: 'absolute',
+  right: 20,
+  top: '50%',
+  marginTop: -25,
+  width: 51,
+  height: 50,
+  borderRadius: 25,
+  backgroundColor: 'rgba(255,255,255,0.15)',
+  borderWidth: 1.5,
+  borderColor: 'rgba(255,255,255,0.35)',
+  justifyContent: 'center',
+  alignItems: 'center',
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.4,
+  shadowRadius: 6,
+  elevation: 6,
+},
 
   // ── Preview actions ──
   previewActions: {
