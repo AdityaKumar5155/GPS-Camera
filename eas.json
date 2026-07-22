@@ -15,7 +15,8 @@
     "production-apk": {
       "extends": "production",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "image": "latest"
       }
     }
   }
