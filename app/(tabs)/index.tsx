@@ -195,7 +195,7 @@ export default function CameraScreen() {
       mounted = false;
       import('expo-navigation-bar')
         .then(NavBar => NavBar.setVisibilityAsync('visible'))
-        .catch(() => {});
+        .catch(() => { });
     };
   }, []);
 
@@ -368,7 +368,7 @@ export default function CameraScreen() {
       <View style={styles.permContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#0a0a0f" />
         <View style={styles.permIcon}>
-          <Text style={{ fontSize: 52 }}>📷</Text>
+          <Image source={require('@/assets/images/favicon.png')} style={{ width: 150, height: 150, borderRadius: 14 }} resizeMode="contain" />
         </View>
         <Text style={styles.permTitle}>GPS Camera</Text>
         <Text style={styles.permSub}>Solar Site Investigation</Text>
